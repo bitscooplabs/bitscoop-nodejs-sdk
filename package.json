@@ -1,0 +1,30 @@
+{
+  "name": "bitscoop-sdk",
+  "version": "0.1.0",
+  "description": "A simple SDK to work with the BitScoop API platform.",
+  "author": "BitScoop Labs, Inc. (https://bitscoop.com/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitscooplabs/bitscoop-nodejs-sdk.git"
+  },
+  "main": "main",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "request": "^2.67.0",
+    "setprototypeof": "^1.0.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^19.0.0",
+    "grunt-jsonlint": "^1.0.7",
+    "grunt-mocha-test": "^0.12.7",
+    "load-grunt-tasks": "^3.5.0",
+    "mocha": "^2.4.5",
+    "nock": "^9.0.2",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
+  }
+}
