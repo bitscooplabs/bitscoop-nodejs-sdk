@@ -35,7 +35,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, body);
 
@@ -62,7 +66,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.post('/1234/Posts')
 			.reply(200, body);
 
@@ -89,7 +97,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, body);
 
@@ -116,7 +128,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, body);
 
@@ -143,7 +159,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.post('/1234/Posts')
 			.reply(200, body);
 
@@ -163,7 +183,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, body);
 
@@ -186,7 +210,11 @@ describe('Basic request proxy behavior', function() {
 		let api = bitscoop.api('1234');
 		let headerSpy = sinon.spy();
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, function() {
 				let filtered = _.pick(this.req.headers, ['x-connection-id', 'authorization', 'foo']);
@@ -218,7 +246,11 @@ describe('Basic request proxy behavior', function() {
 		let bitscoop = new BitScoop('abcd');
 		let api = bitscoop.api('1234');
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.query({
 				head: 'toe',
@@ -242,7 +274,11 @@ describe('Basic request proxy behavior', function() {
 		let bitscoop = new BitScoop('abcd');
 		let api = bitscoop.api('1234');
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts/1')
 			.reply(200);
 
@@ -257,7 +293,11 @@ describe('Basic request proxy behavior', function() {
 		let bitscoop = new BitScoop('abcd');
 		let api = bitscoop.api('1234');
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts/4')
 			.query({
 				head: 'toe',
@@ -282,7 +322,11 @@ describe('Basic request proxy behavior', function() {
 		let api = bitscoop.api('1234', 'zyxv');
 		let headerSpy = sinon.spy();
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, function() {
 				let filtered = _.pick(this.req.headers, ['x-connection-id', 'authorization', 'foo']);
@@ -307,7 +351,11 @@ describe('Basic request proxy behavior', function() {
 		let bitscoop = new BitScoop('abcd');
 		let api = bitscoop.map('1234');
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200);
 
@@ -333,7 +381,11 @@ describe('Basic request proxy behavior', function() {
 		let api = bitscoop.map('1234', 'zyxv');
 		let headerSpy = sinon.spy();
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, function() {
 				let filtered = _.pick(this.req.headers, ['x-connection-id', 'authorization', 'foo']);
@@ -363,7 +415,11 @@ describe('Basic request proxy behavior', function() {
 			{ id: 2 }
 		];
 
-		nock('https://data.api.bitscoop.com')
+		nock('https://api.bitscoop.com', {
+			reqHeaders: {
+				host: 'data.api.bitscoop.com'
+			}
+		})
 			.get('/1234/Posts')
 			.reply(200, body);
 

@@ -20,8 +20,24 @@ To use the SDK, you must instantiate a new instance of it with your API key:
 ```
 var Bitscoop = require('bitscoop-sdk');
 
-var bitscoop = new Bitscoop(token);
+var bitscoop = new Bitscoop(token, [options]);
 ```
+
+You can alternatively pass the token as one of the options:
+```
+var bitscoop = new Bitscoop({
+    token: 'abcd1234',
+    ...
+});
+```
+
+The options that can be passed are as follows:
+
+* token - Will override a token passed as a parameter.
+* protocol - http or https, defaults to https.
+* port - Defaults to 443 if protocol is https and 80 if protocol is http.
+* hostname - The hostname used to make calls to the API, defaults to 'api.bitscoop.com'. Do not change unless you are using a local deployment.
+* allowUnauthorized - If calling over https, uses an https agent with `rejectUnauthorized` set to false. It's not advised to set this to true unless you are testing a local deployment.
 
 From there, you can create multiple APIs corresponding to API maps in the BitScoop platform:
 
@@ -48,7 +64,7 @@ promise.then(function(result) {
 
 identifier is the ID of a single object that you wish to act on, e.g. if you were calling the endpoint `/Posts` and wanted to act on Post 5, identifier would be 5.
 This gets translated to a call to `/Posts/5`.
-options can contain JSON objects `query`, `headers`, and `body`, that correspond to the query parameters, headers, and body that will be passed as part of the call.
+options can contain JSON objects `query/parameters`, `headers`, and `body`, that correspond to the query parameters, headers, and body that will be passed as part of the call.
 
 ```
 cursor({
@@ -65,6 +81,28 @@ cursor({
     }
 });
 ```
+
+You can pass query parameters as either `query` or `parameters`:
+
+```
+cursor({
+    parameters: {
+        foo: 'bar'
+    }
+});
+```
+
+OR
+
+```
+cursor({
+    query: {
+        foo: 'bar
+    }
+});
+```
+
+If you pass both in, only what is defined in `query` will be used.
 
 Note that it does not matter which order you call `.endpoint()` or `.method()`.
 Calling `.endpoint()` at some point in the chain is required, but the default HTTP verb is 'GET', so calling `.get()` is not required.

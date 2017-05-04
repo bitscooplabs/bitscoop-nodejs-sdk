@@ -14,18 +14,48 @@ let maps = new WeakMap();
  */
 class BitScoopSDK {
 	/**
-	 * Ensures the token passed in is present and is a string, sets the token on the instance, and creates an entry in maps for the new instance.
+	 * Ensures the token passed in is present and is a string, sets the token on the instance, sets the host if specified, and creates an entry in maps for the new instance.
 	 *
 	 * @constructor
-	 * @param token
+	 * @param token {Object, String} The API key or an object containing the API key and other options.
+	 * @param options {Object} An object containing instantiation options.
 	 */
-	constructor(token) {
-		assert.ok(token != null, 'An API key is required.');
-		assert.ok(typeof token === 'string', 'API key must be a string.');
+	constructor(token, options) {
+		if (typeof token === 'object') {
+			options = token;
+			token = null;
+		}
+
+		if (options == null) {
+			options = {};
+		}
+
+		if (!options.hasOwnProperty('token')) {
+			options.token = token;
+		}
+
+		assert.ok(options.token != null, 'An API key is required.');
+		assert.ok(typeof options.token === 'string', 'API key must be a string.');
+
+		if (options.allowUnauthorized) {
+			assert.ok(typeof options.allowUnauthorized === 'boolean', 'allowUnauthorized must be a boolean.');
+		}
 
 		maps[this] = {};
 
-		this.token = token;
+		this.token = options.token;
+		this.hostname = options.hostname || 'api.bitscoop.com';
+		this.allowUnauthorized = options.allowUnauthorized === true;
+		this.protocol = options.protocol || 'https';
+
+		assert.ok(this.protocol === 'https' || this.protocol === 'http', 'protocol must be http or https');
+
+		if (this.protocol === 'https') {
+			this.port = options.port || 443;
+		}
+		else if (this.protocol === 'http') {
+			this.port = options.port || 80;
+		}
 	}
 
 	/**
@@ -37,7 +67,7 @@ class BitScoopSDK {
 	 * @returns {BitScoopAPI} An instance of a BitScoop API with callable methods mapping to the API map.
 	 */
 	api(id, token) {
-		let api = new BitScoopAPI(id, token || this.token);
+		let api = new BitScoopAPI(id, token || this.token, this.hostname, this.protocol, this.port, this.allowUnauthorized);
 
 		return maps[this][id] = api;
 	}
@@ -73,20 +103,42 @@ class BitScoopSDK {
  */
 class BitScoopAPI {
 	/**
-	 * Ensures the ID and token are present and are strings, and sets those fields on the instance.
+	 * Ensures the options are present and the proper type, and sets those fields on the instance.
 	 *
 	 * @constructor
 	 * @param id
 	 * @param token
+	 * @param hostname
+	 * @param protocol
+	 * @param port
+	 * @param allowUnauthorized
 	 */
-	constructor(id, token) {
+	constructor(id, token, hostname, protocol, port, allowUnauthorized) {
 		assert.ok(id != null, 'An API Map ID is required.');
 		assert.ok(typeof id === 'string', 'API Map ID must be a string.');
+
 		assert.ok(token != null, 'An API key is required.');
 		assert.ok(typeof token === 'string', 'API key must be a string.');
 
+		assert.ok(hostname != null, 'A hostname is required.');
+		assert.ok(typeof hostname === 'string', 'hostname must be a string.');
+
+		assert.ok(protocol != null, 'A protocol is required.');
+		assert.ok(typeof protocol === 'string', 'protocol must be a string.');
+		assert.ok(protocol === 'https' || protocol === 'http', 'protocol must be http or https');
+
+		assert.ok(port != null, 'A port is required.');
+		assert.ok(typeof port === 'number', 'port must be a number.');
+
+		assert.ok(allowUnauthorized != null, 'allowUnauthoried is required.');
+		assert.ok(typeof allowUnauthorized === 'boolean', 'allowUnauthorized must be a boolean.');
+
 		this.id = id;
+		this.allowUnauthorized = allowUnauthorized;
 		this.token = token;
+		this.hostname = hostname;
+		this.protocol = protocol;
+		this.port = port;
 	}
 
 	/**
