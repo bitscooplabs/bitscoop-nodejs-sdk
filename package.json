@@ -11,6 +11,7 @@
   "main": "main",
   "dependencies": {
     "lodash": "^3.10.1",
+    "node-noop": "^1.0.0",
     "request": "^2.67.0",
     "setprototypeof": "^1.0.3"
   },

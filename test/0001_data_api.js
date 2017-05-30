@@ -13,7 +13,7 @@ chai.use(require('chai-as-promised'));
 chai.use(require('sinon-chai'));
 
 
-describe('Basic request proxy behavior', function() {
+describe('Data API behavior', function() {
 	before(function() {
 		nock.disableNetConnect();
 	});
@@ -26,7 +26,7 @@ describe('Basic request proxy behavior', function() {
 		nock.cleanAll();
 	});
 
-	it('call the specified endpoint on the API', function() {
+	it('should call the specified endpoint on the API', function() {
 		let bitscoop = new BitScoop('abcd');
 		let api = bitscoop.api('1234');
 
@@ -289,7 +289,7 @@ describe('Basic request proxy behavior', function() {
 		]);
 	});
 
-	it('should should handle an identifier and options correctly', function() {
+	it('should handle an identifier and options correctly', function() {
 		let bitscoop = new BitScoop('abcd');
 		let api = bitscoop.api('1234');
 
@@ -347,68 +347,9 @@ describe('Basic request proxy behavior', function() {
 		]);
 	});
 
-	it('should create a new instance of api when .map is called', function() {
-		let bitscoop = new BitScoop('abcd');
-		let api = bitscoop.map('1234');
-
-		nock('https://api.bitscoop.com', {
-			reqHeaders: {
-				host: 'data.api.bitscoop.com'
-			}
-		})
-			.get('/1234/Posts')
-			.reply(200);
-
-		let promise = api.endpoint('Posts').method('GET')();
-
-		return Promise.all([
-			expect(promise).to.be.fulfilled
-		]);
-	});
-
-	it('should use an existing api instance if .map is called and an instance of that map already exists', function() {
-		let bitscoop = new BitScoop('abcd');
-		let apiOrig = bitscoop.api('1234');
-		let apiCopy = bitscoop.map('1234');
-
-		return Promise.all([
-			expect(apiOrig).to.equal(apiCopy)
-		]);
-	});
-
-	it('should override the API key if the api is instantiated with a different token using .map', function() {
-		let bitscoop = new BitScoop('abcd');
-		let api = bitscoop.map('1234', 'zyxv');
-		let headerSpy = sinon.spy();
-
-		nock('https://api.bitscoop.com', {
-			reqHeaders: {
-				host: 'data.api.bitscoop.com'
-			}
-		})
-			.get('/1234/Posts')
-			.reply(200, function() {
-				let filtered = _.pick(this.req.headers, ['x-connection-id', 'authorization', 'foo']);
-
-				headerSpy(filtered);
-			});
-
-		let promise = api.endpoint('Posts').method('GET')();
-
-		return Promise.all([
-			expect(promise).to.be.fulfilled,
-
-			promise.then(function() {
-				return expect(headerSpy).to.have.been.calledWith({
-					authorization: 'Bearer zyxv'
-				});
-			})
-		]);
-	});
-
 	it('should use a callback function if called with one', function() {
 		let bitscoop = new BitScoop('abcd');
-		let api = bitscoop.map('1234', 'zyxv');
+		let api = bitscoop.api('1234', 'zyxv');
 
 		let body = [
 			{ id: 1 },
