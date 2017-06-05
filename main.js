@@ -118,7 +118,11 @@ class BitScoopSDK {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t create Connection');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				return Promise.resolve(body);
@@ -174,7 +178,11 @@ class BitScoopSDK {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t delete Connection');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				cb(null, null);
@@ -223,7 +231,11 @@ class BitScoopSDK {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t retrieve Connection');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				return Promise.resolve(body);
@@ -280,7 +292,11 @@ class BitScoopSDK {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t  create Map');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				return Promise.resolve(body);
@@ -337,7 +353,11 @@ class BitScoopSDK {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t  delete Map');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				delete sdkMapRef[mapId];
@@ -389,7 +409,11 @@ class BitScoopSDK {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t  retrieve Map');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				return Promise.resolve(body);
@@ -559,7 +583,11 @@ class BitScoopConnection {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t  save Connection');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				return Promise.resolve(body);
@@ -674,7 +702,11 @@ class BitScoopMap {
 				let [body, response] = result;
 
 				if (!(/^2/.test(response.statusCode))) {
-					return Promise.reject(new Error(body.message));
+					let err = new Error('Couldn\'t  save Map');
+
+					err.body = body;
+
+					return Promise.reject(err);
 				}
 
 				return Promise.resolve(body);
