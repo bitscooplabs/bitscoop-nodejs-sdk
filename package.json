@@ -1,6 +1,6 @@
 {
   "name": "bitscoop-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A simple SDK to work with the BitScoop API platform.",
   "author": "BitScoop Labs, Inc. (https://bitscoop.com/)",
   "license": "MIT",
