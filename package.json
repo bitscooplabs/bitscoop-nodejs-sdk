@@ -10,7 +10,7 @@
   },
   "main": "main",
   "dependencies": {
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "node-noop": "^1.0.0",
     "request": "^2.67.0",
     "setprototypeof": "^1.0.3"
